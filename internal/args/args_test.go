@@ -12,6 +12,8 @@ const (
 )
 
 func TestNewClientFlags(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name           string
 		args           []string
