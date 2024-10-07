@@ -1,10 +1,9 @@
 package config
 
 import (
-	"github.com/spf13/viper"
-	"os"
-	"path/filepath"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 const (
@@ -32,15 +31,6 @@ type ClientNetworkConfig struct {
 	IdleTimeout    time.Duration
 }
 
-func getClientConfigPath() (string, error) {
-	projectRootPath, err := os.Getwd()
-	if err != nil {
-		return "", err
-	}
-	configPath := filepath.Join(projectRootPath, configDirectory)
-	return configPath, nil
-}
-
 // newLoggerConfig logger config parser, returns LoggerConfig.
 func newLoggerConfig() LoggerConfig {
 	return LoggerConfig{
@@ -60,16 +50,12 @@ func newNetworkConfig() ClientNetworkConfig {
 
 // NewClientConfig client application config parser, returns ClientConfig
 // or error if something went wrong during initialization.
-func NewClientConfig() (*ClientConfig, error) {
-	clientCfgPath, err := getClientConfigPath()
-	if err != nil {
-		return nil, err
-	}
-
+func NewClientConfig(configPath string) (*ClientConfig, error) {
 	viper.SetConfigName(configClientFile)
 	viper.SetConfigType(configClientFileExtension)
-	viper.AddConfigPath(clientCfgPath)
-	err = viper.ReadInConfig()
+	viper.AddConfigPath(configPath)
+
+	err := viper.ReadInConfig()
 	if err != nil {
 		return nil, err
 	}
