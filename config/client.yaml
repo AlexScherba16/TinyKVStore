@@ -4,3 +4,5 @@ network:
   address: "127.0.0.1:3223"
   max_message_size: "4KB"
   idle_timeout: 5m
+  read_timeout: 5s
+  write_timeout: 5s

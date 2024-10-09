@@ -29,6 +29,8 @@ type ClientNetworkConfig struct {
 	Address        string
 	MaxMessageSize string
 	IdleTimeout    time.Duration
+	ReadTimeout    time.Duration
+	WriteTimeout   time.Duration
 }
 
 // newLoggerConfig logger config parser, returns LoggerConfig.
@@ -45,6 +47,8 @@ func newNetworkConfig() ClientNetworkConfig {
 		Address:        viper.GetString("network.address"),
 		MaxMessageSize: viper.GetString("network.max_message_size"),
 		IdleTimeout:    viper.GetDuration("network.idle_timeout"),
+		ReadTimeout:    viper.GetDuration("network.read_timeout"),
+		WriteTimeout:   viper.GetDuration("network.write_timeout"),
 	}
 }
 

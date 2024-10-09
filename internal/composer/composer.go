@@ -33,7 +33,5 @@ func ComposeNewClientApplication() (application.IApplication, error) {
 		return nil, err
 	}
 
-	_ = tcpClient
-
-	return client.NewClientApplication(zapLogger)
+	return client.NewClientApplication(zapLogger, tcpClient)
 }
