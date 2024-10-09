@@ -2,28 +2,26 @@ package main
 
 import (
 	"TinyKVStore/internal/composer"
-	"os"
-	"os/signal"
+	"TinyKVStore/internal/helpers/syncutil"
+	"log"
 	"syscall"
 )
 
 func main() {
-	signalChan := make(chan os.Signal, 1)
-	signal.Notify(signalChan, syscall.SIGINT)
-
 	app, err := composer.ComposeNewClientApplication()
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	go func() {
 		if err := app.Run(); err != nil {
-			panic(err)
+			log.Fatalln(err)
 		}
 	}()
 
-	<-signalChan
+	syncutil.WaitForSignal(syscall.SIGINT)
+
 	if err := app.Shutdown(); err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 }

@@ -1,7 +1,7 @@
-package helpers_test
+package parser_test
 
 import (
-	"TinyKVStore/internal/helpers"
+	"TinyKVStore/internal/helpers/parser"
 	"testing"
 )
 
@@ -58,7 +58,7 @@ func TestNewClientFlags(t *testing.T) {
 			/* ARRANGE */
 
 			/* ACT */
-			result := helpers.ParseBufferSize(testCase.input)
+			result := parser.ParseBufferSize(testCase.input)
 
 			/* ASSERT */
 			// Assert result
